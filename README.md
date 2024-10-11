@@ -7,7 +7,7 @@ The website will allow customers to easily browse, customize, and order slushies
 
 Planned Features
   - Slushie customization and saving favorites 
-  - Ordering and Delivery (Using geolocation), 
+  - Ordering and Delivery (Using geolocation)
   - User Authentication
 
 
