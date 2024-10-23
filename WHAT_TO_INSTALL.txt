@@ -1,1 +1,17 @@
 
+Commands for what to install: 
+
+Install: 
+  npm install express 
+
+Install dotenv: 
+  npm i dotenv 
+
+Install nodemon: 
+  npm i -D nodemon 
+
+Run the Express server in the terminal: 
+  ** Go to the directory of your node.js project**
+
+  Then type this in the terminal: 
+    npm run dev
