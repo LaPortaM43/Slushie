@@ -7,10 +7,10 @@ USE SlushieApp_DB;
 DROP TABLE IF EXISTS customers; 
 CREATE TABLE customers ( 
     customerID VARCHAR(50) PRIMARY KEY, 
-    name VARCHAR(100) NOT NULL, 
-    email VARCHAR(100) UNIQUE NOT NULL,
+    customerName VARCHAR(100) NOT NULL, 
+    customerEmail VARCHAR(100) UNIQUE NOT NULL,
     customerAddress VARCHAR(255) NOT NULL, 
-    password VARCHAR(255) NOT NULL
+    customerPassword VARCHAR(255) NOT NULL
 ); 
 TRUNCATE TABLE customers; 
 
@@ -60,3 +60,4 @@ CREATE TABLE orders (
     FOREIGN KEY (flavor3ID) REFERENCES flavors(flavorID)
 );
 TRUNCATE TABLE orders;
+
