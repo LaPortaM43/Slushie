@@ -11,3 +11,16 @@ export async function getFlavors() {
     }
 }
 
+// test functions
+
+/*
+try { 
+    console.log("Reading flavors: "); 
+    const readFlavors = await getFlavors(); 
+    console.log(readFlavors); 
+
+} catch (error) { 
+    console.error("Error reading flavors: ", error); 
+    throw error;  
+}
+*/ 
