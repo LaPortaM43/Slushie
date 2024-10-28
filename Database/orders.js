@@ -1,11 +1,11 @@
 import { pool } from '../db.js';
 
 // Create
-export async function createOrder(orderID, customerID, restaurantID, price, deliveryAddress) { 
+export async function createOrder(orderID, customerID, branchID, price, deliveryAddress) { 
     try { 
         const [result] = await pool.query(`
-            INSERT INTO orders (orderID, customerID, restaurantID, price, deliveryAddress)
-            VALUES (?, ?, ?, ?, ?)`, [orderID, customerID, restaurantID, price, deliveryAddress]); 
+            INSERT INTO orders (orderID, customerID, branchID, price, deliveryAddress)
+            VALUES (?, ?, ?, ?, ?)`, [orderID, customerID, branchID, price, deliveryAddress]); 
 
         if (result.affectedRows == 0) { 
             throw new Error("Failed to create order");
@@ -45,12 +45,12 @@ export async function getOrder(orderID) {
 }
 
 // Update 
-export async function updateOrder(orderID, customerID, restaurantID, price, deliveryAddress) {
+export async function updateOrder(orderID, customerID, branchID, price, deliveryAddress) {
     try { 
         const [result] = await pool.query(`
             UPDATE orders 
-            SET customerID = ?, restaurantID = ?, price = ?, deliveryAddress = ?
-            WHERE orderID = ?`, [customerID, restaurantID, price, deliveryAddress, orderID]); 
+            SET customerID = ?, branchID = ?, price = ?, deliveryAddress = ?
+            WHERE orderID = ?`, [customerID, branchID, price, deliveryAddress, orderID]); 
 
         if (result.affectedRows == 0) {
             throw new Error("Failed to update order or order not found");
@@ -78,3 +78,4 @@ export async function deleteOrder(orderID) {
         throw error;
     }
 }
+
