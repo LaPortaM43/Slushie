@@ -60,6 +60,7 @@ export async function updateCustomer(customerID, customerName, customerEmail, cu
     if (result.affectedRows == 0) {
       throw new Error("Failed to update customer");
     }
+    return getCustomer(customerID);
   } catch (error) {
       console.error("Error updating customer: ", error);
       throw error;
@@ -83,33 +84,30 @@ export async function deleteCustomer(customerID) {
   }
 }
 
-/*
+
 // Testing functions
+/*
 try {
     console.log("Creating a new customer: ");
-    const newCustomer = await createCustomer('c6', 'Mark', 'mark@gmail.com', '400 Cedar Ave, West Long Branch, NJ 07764', 'mark123');
-    const newCustomer2 = await createCustomer('c7', 'Max', 'max@gmail.com', '400 Cedar Ave, West Long Branch, NJ 07764', 'max123');
+    const newCustomer = await createCustomer('c6', 'Max', 'max@gmail.com', '400 Cedar Ave, West Long Branch, NJ 07764', 'max123');
     console.log(newCustomer);
-    console.log(newCustomer2);
 
     console.log("Reading all customers: ");
     const readCustomers = await getCustomers();
     console.log(readCustomers);
 
-    console.log("Reading a specific customer (c7): ");
-    const readOneCustomer = await getCustomer("c7");
+    console.log("Reading a specific customer (c6): ");
+    const readOneCustomer = await getCustomer("c6");
     console.log(readOneCustomer);
 
-    console.log("Updating a customer (c7): ");
-    await updateCustomer('c7', 'jax', 'jax@gmail.com', '400 Cedar Ave, West Long Branch, NJ 07764', 'jax123');
-    const updatedCustomer = await getCustomer("c7");
+    console.log("Updating a customer (c6): ");
+    const updatedCustomer = await updateCustomer('c6', 'jax', 'jax@gmail.com', '400 Cedar Ave, West Long Branch, NJ 07764', 'jax123');
     console.log(updatedCustomer);
-
 } catch (error) {
     console.error("Error while testing functions: ", error);
     throw error;
 }
-*/ 
-
+*/
+  
   
   
