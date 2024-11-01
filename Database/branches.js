@@ -14,7 +14,7 @@ export async function getBranches() {
 }
 
 // Read by ID 
-export async function getBranches(branchesID) { 
+export async function getBranch(branchID) { 
     try { 
         const [rows] = await pool.query(`
             SELECT * FROM branches WHERE branchID = ?`, [branchID]);
@@ -28,4 +28,23 @@ export async function getBranches(branchesID) {
         throw error; 
     } 
 }
+
+// Testing functions 
+/*
+try { 
+
+    console.log("Reading branches: "); 
+    const readBranches = await getBranches(); 
+    console.log(readBranches); 
+
+    
+    console.log("Reading branches by ID (b2): ")
+    const readBranchByID = await getBranch('b2'); 
+    console.log(readBranchByID);
+
+} catch (error) { 
+    console.error("Error testing functions: ", error); 
+    throw error; 
+}
+*/
 
