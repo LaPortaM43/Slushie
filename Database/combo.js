@@ -91,6 +91,7 @@ export async function deleteCombo(comboID, customerID) {
 try { 
 
     // In MySQL, you need to specify if NULL, in node.js, just leave the field blank 
+    // After looking into it more, you actualy can use null. It just has to be lowercase in javascript 
     console.log("Creating combo: " ); 
     const createdCombo = await createCombo('cb6', 'c1', 'flav1');
     console.log(createdCombo); 
