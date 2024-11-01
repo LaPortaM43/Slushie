@@ -1,5 +1,4 @@
-// combo.js
-
+// combo.js 
 
 import { pool } from '../db.js';
 
@@ -13,7 +12,7 @@ export async function createCombo(comboID, customerID, flavor1ID, flavor2ID, fla
       if (result.affectedRows == 0) { 
           throw new Error("Failed to create combo");
       }
-      return getCombo(comboID, customerID);
+      return getComboByID(comboID, customerID);
   } catch (error) { 
       console.error("Error creating combo: ", error);
       throw error; 
@@ -49,12 +48,14 @@ export async function getComboByID(comboID, customerID) {
 }
 
 // Update 
+// I don't think we are able to update entries in combo since it's all foreign keys 
+/*
 export async function updateCombo(comboID, customerID, flavor1ID, flavor2ID, flavor3ID) {
   try { 
       const [result] = await pool.query(`
-          UPDATE combo 
+          UPDATE combo
           SET customerID = ?, flavor1ID = ?, flavor2ID = ?, flavor3ID = ?
-          WHERE comboID = ?`, [customerID, flavor1ID, flavor2ID, flavor3ID, favoriteID]); 
+          WHERE comboID = ?`, [customerID, flavor1ID, flavor2ID, flavor3ID, comboID]); 
 
       if (result.affectedRows == 0) {
           throw new Error("Failed to update combo");
@@ -65,6 +66,7 @@ export async function updateCombo(comboID, customerID, flavor1ID, flavor2ID, fla
       throw error; 
   }
 }
+*/ 
 
 // Delete 
 export async function deleteCombo(comboID, customerID) { 
@@ -83,13 +85,28 @@ export async function deleteCombo(comboID, customerID) {
   }
 }
 
-// testing functions 
 /*
+// Testing functions 
+// customerID could be default null 
 try { 
-    console.log("Reading favorites: "); 
-    const readFavorites = await createFavorites('f6', 'c1', '')
 
+    // In MySQL, you need to specify if NULL, in node.js, just leave the field blank 
+    console.log("Creating combo: " ); 
+    const createdCombo = await createCombo('cb6', 'c1', 'flav1');
+    console.log(createdCombo); 
+    
+    console.log("Reading combos: "); 
+    const readCombos = await getCombo(); 
+    console.log(readCombos);
 
+    console.log("Reading combo by ID (cb2): "); 
+    const readComboByID = await getComboByID('cb2','c2');
+    console.log(readComboByID);
+    
+    console.log("Deleting combo: ");
+    const deletedCombo = await deleteCombo('cb6', 'c1');
+    console.log(deletedCombo);
+    
 } catch (error) { 
     console.error("Error testing functions: ", error) 
     throw error; 
