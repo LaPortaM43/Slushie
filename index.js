@@ -36,7 +36,7 @@ const startServer = async () => {
         console.log('Database connection established successfully.');
 
         // Sync models to the database (create tables if they don't exist)
-        await db.sync(); // You can pass { force: true } to recreate tables during development
+        //await db.sync(); // You can pass { force: true } to recreate tables during development
 
         // Start server
         app.listen(PORT, () => {
