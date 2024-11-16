@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -68,3 +69,19 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+=======
+# Slushie
+
+Team Members: Matthew LaPorta, Mujeeb Ali, Ryan Wire
+
+Proposal: The goal of this project is to create a food ordering website for a slushie restaurant. 
+The website will allow customers to easily browse, customize, and order slushies directly online. 
+
+Planned Features
+  - Slushie customization and saving favorites 
+  - Ordering and Delivery (Using geolocation)
+  - User Authentication
+
+
+
+>>>>>>> b8fa294321fb609e8221942b7d318a02001b1e04
