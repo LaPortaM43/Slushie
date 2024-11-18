@@ -3,7 +3,8 @@
 const { DataTypes } = require('sequelize');
 const db = require('../config/database');
 
-const Combo = db.define('Combo', {
+class Combo extends model{} 
+Combo.init({
     comboID: { 
         type: DataTypes.STRING(100), 
         primaryKey: true, 
@@ -28,7 +29,11 @@ const Combo = db.define('Combo', {
         type: DataTypes.STRING(100), 
         references: { model: 'flavors', key: 'flavorID' }, 
         allowNull: true 
-    }
-});
+    },
+}, {
+    sequelize: db, 
+    modelName: 'Combo',
+})
 
 module.exports = Combo;
+
