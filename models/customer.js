@@ -1,9 +1,14 @@
 // models/customer.js
 
-const { DataTypes } = require('sequelize');
+const { DataTypes, model} = require('sequelize');
 const db = require('../config/database');
 
-const Customer = db.define('Customer', {
+const Order = require('./order');
+const Flavor = require('./flavor'); 
+class Customer extends model {}
+
+Customer.init({
+
     customerID: { 
         type: DataTypes.STRING(100), 
         primaryKey: true, 
@@ -25,7 +30,14 @@ const Customer = db.define('Customer', {
     customerPassword: { 
         type: DataTypes.STRING, 
         allowNull: false 
-    }
+    },
+
+}, { 
+    sequelize: db, 
+    modelName: 'Customer', 
 });
+
+Customer.hasMany(Order, { foreignKey: 'customerID', as: 'orders' });
+Order.belongsTo(Customer, { foreignKey: 'customerID', as: 'customer' });
 
 module.exports = Customer;
