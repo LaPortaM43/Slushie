@@ -3,7 +3,7 @@
 const { DataTypes } = require('sequelize');
 const db = require('../config/database');
 
-class Combo extends model{} 
+class Combo extends Model{} 
 Combo.init({
     comboID: { 
         type: DataTypes.STRING(100), 
