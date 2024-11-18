@@ -5,7 +5,7 @@ const db = require('../config/database');
 
 const Order = require('./order');
 const Flavor = require('./flavor'); 
-class Customer extends model {}
+class Customer extends Model {}
 
 Customer.init({
 
