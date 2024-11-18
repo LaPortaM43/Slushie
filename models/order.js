@@ -3,7 +3,13 @@
 const { DataTypes } = require('sequelize');
 const db = require('../config/database');
 
-const Order = db.define('Order', {
+const Customer = require('./customer');
+const Flavor = require('./flavor'); 
+const Branch = require('./branch');
+
+class Order extends Model{}
+
+Order.init({
     orderID: { 
         type: DataTypes.STRING(100), 
         primaryKey: true, 
@@ -41,7 +47,17 @@ const Order = db.define('Order', {
         type: DataTypes.STRING(100), 
         references: { model: 'flavors', key: 'flavorID' },
         allowNull: true 
-    }
+    },
+}, {
+    sequelize: db, 
+    modelName: 'Order',   
 });
 
+Order.belongsTo(Customer, { foreignKey: 'customerID' });
+Order.belongsTo(Branch, { foreignKey: 'branchID' });
+Order.belongsTo(Flavor, { foreignKey: 'flavor1ID', as: 'Flavor1' });
+Order.belongsTo(Flavor, { foreignKey: 'flavor2ID', as: 'Flavor2' });
+Order.belongsTo(Flavor, { foreignKey: 'flavor3ID', as: 'Flavor3' });
+
 module.exports = Order;
+
