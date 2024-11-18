@@ -1,6 +1,6 @@
 // models/customer.js
 
-const { DataTypes, model} = require('sequelize');
+const { DataTypes, Model} = require('sequelize');
 const db = require('../config/database');
 
 const Order = require('./order');
