@@ -33,7 +33,7 @@ Customer.init({
     },
 
 }, { 
-    sequelize: db, 
+    sequelize: sequelize, 
     modelName: 'Customer', 
 });
 
