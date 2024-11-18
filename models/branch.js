@@ -3,7 +3,8 @@
 const { DataTypes } = require('sequelize');
 const db = require('../config/database');
 
-const Branch = db.define('Branch', {
+class Branch extends model{} 
+Branch.init({
     branchID: { 
         type: DataTypes.STRING(100), 
         primaryKey: true, 
@@ -17,7 +18,10 @@ const Branch = db.define('Branch', {
         type: DataTypes.STRING, 
         allowNull: false, 
         unique: true 
-    }
-});
+    },
+}, {
+    sequelize: db, 
+    modelName: 'Branch',
+})
 
 module.exports = Branch;
