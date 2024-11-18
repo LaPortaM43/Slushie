@@ -20,7 +20,7 @@ Branch.init({
         unique: true 
     },
 }, {
-    sequelize: db, 
+    sequelize: sequelize,  
     modelName: 'Branch',
 })
 
