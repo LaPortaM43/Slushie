@@ -18,7 +18,7 @@ Flavor.init({
         unique: true 
     }
 }, { 
-    sequelize: db, 
+    sequelize: sequelize, 
     modelName: 'Flavor',
 
 })
