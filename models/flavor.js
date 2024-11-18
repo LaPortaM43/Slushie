@@ -5,7 +5,7 @@ const db = require('../config/database');
 
 const Order = require('./order'); 
 const Combo = require('./combo');
-class Flavor extends model{} 
+class Flavor extends Model{} 
 Flavor.init({
     flavorID: { 
         type: DataTypes.STRING(100), 
