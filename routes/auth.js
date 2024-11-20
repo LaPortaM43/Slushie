@@ -1,7 +1,7 @@
 //auth.js
 const express = require('express');
 const router = express.Router();
-const { registerCustomer, loginCustomer, logoutCustomer } = require('../controllers/auth.js');
+const { registerCustomer, loginCustomer, logoutCustomer } = require('../controllers/authController.js');
 
 // Auth Routes
 router.post('/register', registerCustomer);
