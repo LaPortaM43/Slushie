@@ -1,6 +1,6 @@
 // controllers/customerController.js
 
-const { Customer } = require('../models');
+const { Customer } = require('../models/customer.js');
 
 // Get all customers (GET)
 exports.getAllCustomers = async (req, res) => {
