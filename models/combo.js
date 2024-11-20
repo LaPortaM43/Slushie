@@ -31,9 +31,10 @@ Combo.init({
         allowNull: true 
     },
 }, {
-    sequelize: db,  
+    sequelize: db, 
     modelName: 'Combo',
 })
 
 module.exports = Combo;
+
 
