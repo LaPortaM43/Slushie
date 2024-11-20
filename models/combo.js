@@ -1,9 +1,10 @@
 // models/combo.js
-
 const { DataTypes, Model } = require('sequelize');
 const db = require('../config/database.js');
+const Flavor = require('./flavor.js');  
 
-class Combo extends Model{} 
+class Combo extends Model {}
+
 Combo.init({
     comboID: { 
         type: DataTypes.STRING(100), 
@@ -31,10 +32,8 @@ Combo.init({
         allowNull: true 
     },
 }, {
-    sequelize: db, 
+    sequelize: db,  
     modelName: 'Combo',
-})
+});
 
 module.exports = Combo;
-
-
