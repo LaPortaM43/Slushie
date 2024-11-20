@@ -1,6 +1,8 @@
 // controllers/combo.js
 
-const { Combo, Customer, Flavor } = require('../models/combo.js');
+const { Combo } = require('../models/combo.js');
+const { Customer } = require('../models/customer.js');
+const { Flavor} = require('../models/flavor.js');
 
 // Get all combos (GET)
 exports.getAllCombos = async (req, res) => {
