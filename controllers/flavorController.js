@@ -1,6 +1,6 @@
 // controllers/flavorController.js
 
-const { Flavor, Order, Combo } = require('../models');
+const { Flavor, Order, Combo } = require('../models/flavor.js');
 
 // Get all flavors (GET)
 exports.getAllFlavors = async (req, res) => {
