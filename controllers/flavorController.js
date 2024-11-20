@@ -1,6 +1,8 @@
 // controllers/flavorController.js
 
-const { Flavor, Order, Combo } = require('../models/flavor.js');
+const { Flavor } = require('../models/flavor.js');
+const { Order } = require('../models/order.js');
+const { Combo } = require('../models/combo.js');
 
 // Get all flavors (GET)
 exports.getAllFlavors = async (req, res) => {
@@ -92,3 +94,4 @@ exports.deleteFlavor = async (req, res) => {
     res.status(500).json({ error: 'Failed to delete flavor' });
   }
 };
+
