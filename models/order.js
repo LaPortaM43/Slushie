@@ -1,13 +1,11 @@
 // models/order.js
-
 const { DataTypes, Model } = require('sequelize');
 const db = require('../config/database.js');
-
+const Flavor = require('./flavor.js');  // Make sure Flavor is correctly imported
 const Customer = require('./customer.js');
-const Flavor = require('./flavor.js'); 
 const Branch = require('./branch.js');
 
-class Order extends Model{}
+class Order extends Model {}
 
 Order.init({
     orderID: { 
@@ -49,15 +47,14 @@ Order.init({
         allowNull: true 
     },
 }, {
-    sequelize: db,  
-    modelName: 'Order',   
+    sequelize: db,
+    modelName: 'Order',
 });
 
-/*
-Order.belongsTo(Customer, { foreignKey: 'customerID'});
+Order.belongsTo(Customer, { foreignKey: 'customerID' });
 Order.belongsTo(Branch, { foreignKey: 'branchID' });
 Order.belongsTo(Flavor, { foreignKey: 'flavor1ID', as: 'Flavor1' });
 Order.belongsTo(Flavor, { foreignKey: 'flavor2ID', as: 'Flavor2' });
 Order.belongsTo(Flavor, { foreignKey: 'flavor3ID', as: 'Flavor3' });
-*/
+
 module.exports = Order;
