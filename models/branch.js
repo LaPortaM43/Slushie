@@ -1,7 +1,7 @@
 // models/branch.js
 
 const { DataTypes, Model } = require('sequelize');
-const db = require('../config/database');
+const db = require('../config/database.js');
 
 class Branch extends Model{} 
 Branch.init({
