@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const authenticateToken = require('../middlewares/auth');
+const authenticateToken = require('../middleware/authenticateToken.js');
 const { getAllCustomers, getCustomerById, createCustomer, updateCustomer, deleteCustomer } = require('../controllers/customerController.js');
 
 router.use(authenticateToken);
