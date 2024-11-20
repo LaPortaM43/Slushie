@@ -53,11 +53,11 @@ Order.init({
     modelName: 'Order',   
 });
 
-Order.belongsTo(Customer, { foreignKey: 'customerID' });
+/*
+Order.belongsTo(Customer, { foreignKey: 'customerID'});
 Order.belongsTo(Branch, { foreignKey: 'branchID' });
 Order.belongsTo(Flavor, { foreignKey: 'flavor1ID', as: 'Flavor1' });
 Order.belongsTo(Flavor, { foreignKey: 'flavor2ID', as: 'Flavor2' });
 Order.belongsTo(Flavor, { foreignKey: 'flavor3ID', as: 'Flavor3' });
-
+*/
 module.exports = Order;
-
