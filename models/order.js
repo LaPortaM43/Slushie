@@ -1,11 +1,11 @@
 // models/order.js
 
 const { DataTypes, Model } = require('sequelize');
-const db = require('../config/database');
+const db = require('../config/database.js');
 
-const Customer = require('./customer');
-const Flavor = require('./flavor'); 
-const Branch = require('./branch');
+const Customer = require('./customer.js');
+const Flavor = require('./flavor.js'); 
+const Branch = require('./branch.js');
 
 class Order extends Model{}
 
