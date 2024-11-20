@@ -60,7 +60,7 @@ exports.loginCustomer = async (req, res) => {
     const token = jwt.sign(
       { customerID: customer.customerID, customerName: customer.customerName },
       process.env.JWT_SECRET,
-      { expiresIn: '1h' } // Token expires in 1 hour
+      { expiresIn: '1h' } 
     );
 
     // Return the token to the customer
@@ -74,3 +74,4 @@ exports.loginCustomer = async (req, res) => {
 exports.logoutCustomer = (req, res) => {
   res.status(200).json({ message: 'Logged out successfully' });
 };
+
