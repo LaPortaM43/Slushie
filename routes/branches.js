@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const authenticateToken = require('../middlewares/auth');
+const authenticateToken = require('../middleware/authenticateToken.js');
 const { getAllBranches, getBranchById, createBranch, updateBranch, deleteBranch } = require('../controllers/branchController.js');
 
 
