@@ -49,7 +49,7 @@ Order.init({
         allowNull: true 
     },
 }, {
-    sequelize: sequelize,  
+    sequelize: db,  
     modelName: 'Order',   
 });
 
