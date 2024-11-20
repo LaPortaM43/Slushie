@@ -1,10 +1,10 @@
 // models/flavor.js
 
 const { DataTypes, Model } = require('sequelize');
-const db = require('../config/database');
+const db = require('../config/database.js');
 
-const Order = require('./order'); 
-const Combo = require('./combo');
+const Order = require('./order.js'); 
+const Combo = require('./combo.js');
 class Flavor extends Model{} 
 Flavor.init({
     flavorID: { 
