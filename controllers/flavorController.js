@@ -1,97 +1,117 @@
-// controllers/flavorController.js
+// controllers/orderController.js
 
-const { Flavor } = require('../models/flavor.js');
 const { Order } = require('../models/order.js');
-const { Combo } = require('../models/combo.js');
+const { Customer } = require('../models/customer.js');
+const { Flavor } = require('../models/flavor.js');
+const { Branch } = require('../models/branch.js');
 
-// Get all flavors (GET)
-exports.getAllFlavors = async (req, res) => {
-  try {
-    const flavors = await Flavor.findAll();
-    res.status(200).json(flavors);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Failed to retrieve flavors' });
-  }
-};
 
-// Get flavor by ID (GET)
-exports.getFlavorById = async (req, res) => {
+// Get all orders (GET)
+exports.getAllOrders = async (req, res) => {
   try {
-    const flavor = await Flavor.findByPk(req.params.id, {
+    const orders = await Order.findAll({
       include: [
-        { model: Order, as: 'flavor1Orders', attributes: ['orderID'] },
-        { model: Order, as: 'flavor2Orders', attributes: ['orderID'] },
-        { model: Order, as: 'flavor3Orders', attributes: ['orderID'] },
-        { model: Combo, as: 'flavor1Combos', attributes: ['comboID'] },
-        { model: Combo, as: 'flavor2Combos', attributes: ['comboID'] },
-        { model: Combo, as: 'flavor3Combos', attributes: ['comboID'] }
+        { model: Customer, attributes: ['customerName', 'customerEmail'] },
+        { model: Branch, attributes: ['branchName', 'branchAddress'] },
+        { model: Flavor, as: 'Flavor1', attributes: ['flavorName'] },
+        { model: Flavor, as: 'Flavor2', attributes: ['flavorName'] },
+        { model: Flavor, as: 'Flavor3', attributes: ['flavorName'] }
       ]
     });
 
-    if (flavor) {
-      res.status(200).json(flavor);
+    res.status(200).json(orders);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to retrieve orders' });
+  }
+};
+
+// Get order by ID (GET)
+exports.getOrderById = async (req, res) => {
+  try {
+    const order = await Order.findByPk(req.params.id, {
+      include: [
+        { model: Customer, attributes: ['customerName', 'customerEmail'] },
+        { model: Branch, attributes: ['branchName', 'branchAddress'] },
+        { model: Flavor, as: 'Flavor1', attributes: ['flavorName'] },
+        { model: Flavor, as: 'Flavor2', attributes: ['flavorName'] },
+        { model: Flavor, as: 'Flavor3', attributes: ['flavorName'] }
+      ]
+    });
+
+    if (order) {
+      res.status(200).json(order);
     } else {
-      res.status(404).json({ error: 'Flavor not found' });
+      res.status(404).json({ error: 'Order not found' });
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Failed to retrieve flavor' });
+    res.status(500).json({ error: 'Failed to retrieve order' });
   }
 };
 
-// Create a new flavor (POST)
-exports.createFlavor = async (req, res) => {
+// Create a new order (POST)
+exports.createOrder = async (req, res) => {
   try {
-    const { flavorName } = req.body;
+    const { customerID, price, deliveryAddress, branchID, flavor1ID, flavor2ID, flavor3ID } = req.body;
 
-    if (!flavorName) {
-      return res.status(400).json({ error: 'Flavor name is required' });
+    if (!customerID || !price || !branchID || !flavor1ID) {
+      return res.status(400).json({ error: 'Missing required fields' });
     }
 
-    const newFlavor = await Flavor.create({ flavorName });
-    res.status(201).json(newFlavor);
+    const newOrder = await Order.create({
+      customerID,
+      price,
+      deliveryAddress,
+      branchID,
+      flavor1ID,
+      flavor2ID,
+      flavor3ID
+    });
+
+    res.status(201).json(newOrder);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Error creating flavor' });
+    res.status(500).json({ error: 'Error creating order' });
   }
 };
 
-// Update an existing flavor (PUT)
-exports.updateFlavor = async (req, res) => {
+// Update an existing order (PUT)
+exports.updateOrder = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const flavor = await Flavor.findOne({ where: { flavorID: id } });
+    const order = await Order.findOne({ where: { orderID: id } });
 
-    if (!flavor) {
-      return res.status(404).json({ error: 'Flavor not found' });
+    if (!order) {
+      return res.status(404).json({ error: 'Order not found' });
     }
 
-    const updatedFlavor = await flavor.update(req.body);
-    res.status(200).json(updatedFlavor);
+    const updatedOrder = await order.update(req.body);
+
+    res.status(200).json(updatedOrder);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Failed to update flavor' });
+    res.status(500).json({ error: 'Failed to update order' });
   }
 };
 
-// Delete a flavor (DELETE)
-exports.deleteFlavor = async (req, res) => {
+// Delete an order (DELETE)
+exports.deleteOrder = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const flavor = await Flavor.findOne({ where: { flavorID: id } });
+    const order = await Order.findOne({ where: { orderID: id } });
 
-    if (!flavor) {
-      return res.status(404).json({ error: 'Flavor not found' });
+    if (!order) {
+      return res.status(404).json({ error: 'Order not found' });
     }
 
-    await flavor.destroy();
-    res.status(200).json({ message: 'Flavor deleted successfully' });
+    await order.destroy(); 
+    res.status(200).json({ message: 'Order deleted successfully' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Failed to delete flavor' });
+    res.status(500).json({ error: 'Failed to delete order' });
   }
 };
 
