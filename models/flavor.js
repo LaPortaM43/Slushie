@@ -5,6 +5,7 @@ const db = require('../config/database.js');
 
 const Order = require('./order.js'); 
 const Combo = require('./combo.js');
+
 class Flavor extends Model{} 
 Flavor.init({
     flavorID: { 
@@ -18,11 +19,12 @@ Flavor.init({
         unique: true 
     }
 }, { 
-    sequelize: db, 
+    sequelize: db,  
     modelName: 'Flavor',
 
 })
 
+/*
 Flavor.hasMany(Order, { foreignKey: 'flavor1ID', as: 'flavor1Orders' });
 Flavor.hasMany(Order, { foreignKey: 'flavor2ID', as: 'flavor2Orders' });
 Flavor.hasMany(Order, { foreignKey: 'flavor3ID', as: 'flavor3Orders' });
@@ -30,5 +32,6 @@ Flavor.hasMany(Order, { foreignKey: 'flavor3ID', as: 'flavor3Orders' });
 Flavor.hasMany(Combo, { foreignKey: 'flavor1ID', as: 'flavor1Combos' });
 Flavor.hasMany(Combo, { foreignKey: 'flavor2ID', as: 'flavor2Combos' });
 Flavor.hasMany(Combo, { foreignKey: 'flavor3ID', as: 'flavor3Combos' });
-
+*/
 module.exports = Flavor;
+
