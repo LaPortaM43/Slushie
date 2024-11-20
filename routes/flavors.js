@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const authenticateToken = require('../middlewares/auth');
-const { getAllFlavors, getFlavorById, createFlavor, updateFlavor, deleteFlavor } = require('../controllers/flavors');
+const { getAllFlavors, getFlavorById, createFlavor, updateFlavor, deleteFlavor } = require('../controllers/flavorController.js');
 
 router.use(authenticateToken);
 
