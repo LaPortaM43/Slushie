@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const authenticateToken = require('../middlewares/auth');
-const { getAllCombos, getComboById, createCombo, updateCombo, deleteCombo } = require('../controllers/combos');
+const { getAllCombos, getComboById, createCombo, updateCombo, deleteCombo } = require('../controllers/comboController.js');
 
 router.use(authenticateToken);
 
