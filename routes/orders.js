@@ -1,8 +1,8 @@
 //routes/orders.js
 const express = require('express');
 const router = express.Router();
-const authenticateToken = require('../middlewares/auth');
-const { getAllOrders, getOrderById, createOrder, updateOrder, deleteOrder } = require('../controllers/orders');
+const authenticateToken = require('../middleware/authenticateToken.js');
+const { getAllOrders, getOrderById, createOrder, updateOrder, deleteOrder } = require('../controllers/orderController.js');
 
 router.use(authenticateToken);
 
