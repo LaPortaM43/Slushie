@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const authenticateToken = require('../middlewares/auth');
+const authenticateToken = require('../middleware/authenticateToken.js');
 const { getAllFlavors, getFlavorById, createFlavor, updateFlavor, deleteFlavor } = require('../controllers/flavorController.js');
 
 router.use(authenticateToken);
