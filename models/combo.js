@@ -31,7 +31,7 @@ Combo.init({
         allowNull: true 
     },
 }, {
-    sequelize: sequelize,  
+    sequelize: db,  
     modelName: 'Combo',
 })
 
