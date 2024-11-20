@@ -1,10 +1,10 @@
 // models/customer.js
 
-const { DataTypes, Model} = require('sequelize');
+const { DataTypes, Model } = require('sequelize');
 const db = require('../config/database.js');
 
 const Order = require('./order.js');
-const Flavor = require('./flavor.js'); 
+
 class Customer extends Model {}
 
 Customer.init({
@@ -33,11 +33,13 @@ Customer.init({
     },
 
 }, { 
-    sequelize: db, 
+    sequelize: db,  
     modelName: 'Customer', 
 });
 
+/*
 Customer.hasMany(Order, { foreignKey: 'customerID', as: 'orders' });
 Order.belongsTo(Customer, { foreignKey: 'customerID', as: 'customer' });
-
+*/
 module.exports = Customer;
+
