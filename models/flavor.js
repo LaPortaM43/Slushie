@@ -23,7 +23,7 @@ Flavor.init({
     sequelize: db,  
     modelName: 'Flavor',
 });
-
+/*
 // Associations
 // One flavor can appear in many orders in one of three positions
 Flavor.hasMany(Order, { foreignKey: 'flavor1ID', as: 'flavor1Orders' });
@@ -34,5 +34,5 @@ Flavor.hasMany(Order, { foreignKey: 'flavor3ID', as: 'flavor3Orders' });
 Flavor.hasMany(Combo, { foreignKey: 'flavor1ID', as: 'flavor1Combos' });
 Flavor.hasMany(Combo, { foreignKey: 'flavor2ID', as: 'flavor2Combos' });
 Flavor.hasMany(Combo, { foreignKey: 'flavor3ID', as: 'flavor3Combos' });
-
+*/
 module.exports = Flavor;
