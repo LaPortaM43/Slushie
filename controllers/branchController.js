@@ -1,6 +1,6 @@
 // controllers/branch.js
 
-const { Branch } = require('../models');
+const { Branch } = require('../models/branch.js');
 
 // Get all branches (GET)
 exports.getAllBranches = async (req, res) => {
