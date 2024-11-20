@@ -1,6 +1,6 @@
 // controllers/orderController.js
 
-const { Order, Customer, Branch, Flavor } = require('../models');
+const { Order, Customer, Branch, Flavor } = require('../models/order.js');
 
 // Get all orders (GET)
 exports.getAllOrders = async (req, res) => {
