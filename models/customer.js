@@ -1,10 +1,10 @@
 // models/customer.js
 
 const { DataTypes, Model} = require('sequelize');
-const db = require('../config/database');
+const db = require('../config/database.js');
 
-const Order = require('./order');
-const Flavor = require('./flavor'); 
+const Order = require('./order.js');
+const Flavor = require('./flavor.js'); 
 class Customer extends Model {}
 
 Customer.init({
