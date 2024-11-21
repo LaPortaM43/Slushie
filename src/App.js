@@ -1,5 +1,3 @@
-// App.js
-import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import MenuPage from "./components/MenuPage";
@@ -12,7 +10,7 @@ import BranchesList from "./components/BranchesList"; // Import the BranchesList
 
 function App() {
   return (
-    <Router>
+    <Router basename="/Slushie"> {/* Add the basename prop here */}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/menu" element={<MenuPage />} />
@@ -21,7 +19,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/order" element={<OrderPage />} />
-        <Route path="/branches" element={<BranchesList />} /> {/* Add route for BranchesList */}
+        <Route path="/branches" element={<BranchesList />} />
       </Routes>
     </Router>
   );
