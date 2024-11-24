@@ -1,6 +1,5 @@
-/* src/components/LocationsPage.css */
-
-.locations-container {
+/* src/components/BranchesList.css */
+.branches-container {
   text-align: center;
   padding: 20px;
 }
@@ -13,4 +12,13 @@
   background-color: #f9f9f9;
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li {
+  margin: 10px 0;
 }

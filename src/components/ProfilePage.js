@@ -1,47 +1,63 @@
-import React, { useEffect, useState } from "react";
-import "../components/ProfilePage.css"; 
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { getProfile } from "../api/auth";  // Ensure correct API method for fetching profile
 
 function ProfilePage() {
-  const [profile, setProfile] = useState(null);
+  const [user, setUser] = useState(null);
+  const [favorites, setFavorites] = useState([]);
+  const [orders, setOrders] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        try {
-          const response = await fetch("/api/user/profile", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          if (response.ok) {
-            const data = await response.json();
-            setProfile(data);
-          } else {
-            console.error("Failed to fetch profile");
-          }
-        } catch (error) {
-          console.error("Error fetching profile:", error);
-        }
+    // Fetch the user's profile data from the backend
+    const fetchProfileData = async () => {
+      try {
+        const response = await getProfile();
+        setUser(response.data);
+        setFavorites(response.data.favorites);  // Adjust based on your response structure
+        setOrders(response.data.orders);  // Adjust based on your response structure
+      } catch (error) {
+        console.error("Error fetching profile data:", error);
+        alert("Failed to load profile. Please try again later.");
       }
     };
 
-    fetchProfile();
+    fetchProfileData();
   }, []);
 
-  if (!profile) return <div>Loading...</div>;
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
+  if (!user) {
+    return <p>Loading profile...</p>;
+  }
 
   return (
     <div>
-      <h2>Welcome, {profile.name}</h2>
-      <p>Email: {profile.email}</p>
-      <h3>Your Favorites</h3>
-      {/* Add user's favorite drinks or other details here */}
-      <h3>Your Orders</h3>
-      {/* Add user's order history here */}
+      <h2>Profile</h2>
+      <p>Name: {user.customerName}</p>
+      <p>Email: {user.customerEmail}</p>
+      <p>Address: {user.customerAddress}</p>
+
+      <h3>Favorites</h3>
+      <ul>
+        {favorites.map((item) => (
+          <li key={item.id}>{item.name}</li>  // Adjust based on your favorites structure
+        ))}
+      </ul>
+
+      <h3>Orders</h3>
+      <ul>
+        {orders.map((order) => (
+          <li key={order.id}>Order #{order.id} - {order.status}</li>  // Adjust based on your orders structure
+        ))}
+      </ul>
+
+      <button onClick={handleLogout}>Logout</button>
     </div>
   );
 }
 
 export default ProfilePage;
-

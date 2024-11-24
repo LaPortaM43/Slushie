@@ -1,137 +1,165 @@
+// src/components/OrderPage.js
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getAllBases } from "../api/baseApi";  // Correct import
+import { getAllFlavors } from "../api/flavorApi";  // Correct import
 import "../components/OrderPage.css";
 
 function OrderPage() {
-  const [drinks, setDrinks] = useState([]);
-  const [restaurants, setRestaurants] = useState([]);
-  const [selectedRestaurant, setSelectedRestaurant] = useState("");
-  const [pickupSlots, setPickupSlots] = useState([]);
-  const [selectedSlot, setSelectedSlot] = useState("");
-  const [base, setBase] = useState("");
-  const [selectedFlavor, setSelectedFlavor] = useState("");
+  const [bases, setBases] = useState([]);  // State for bases
+  const [flavors, setFlavors] = useState([]);  // State for flavors
+  const [selectedBase, setSelectedBase] = useState([]);  // Selected bases
+  const [selectedFlavors, setSelectedFlavors] = useState([]);  // Selected flavors
+  const [selectedSlot, setSelectedSlot] = useState("");  // Selected pickup slot
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const getDrinks = async () => {
-      try {
-        const response = await fetch("/api/drinks");
-        const drinksData = await response.json();
-        setDrinks(drinksData);
-      } catch (error) {
-        console.error("Error fetching drinks:", error);
-      }
-    };
+  // Static pickup slots list
+  const pickupSlots = [
+    { slotID: 1, slotTime: "10:00 AM - 11:00 AM" },
+    { slotID: 2, slotTime: "11:00 AM - 12:00 PM" },
+    { slotID: 3, slotTime: "12:00 PM - 1:00 PM" },
+    { slotID: 4, slotTime: "1:00 PM - 2:00 PM" },
+  ];
 
-    const getRestaurants = async () => {
-      try {
-        const response = await fetch("/api/restaurants");
-        const restaurantsData = await response.json();
-        setRestaurants(restaurantsData);
-      } catch (error) {
-        console.error("Error fetching restaurants:", error);
-      }
-    };
-    getDrinks();
-    getRestaurants();
-  }, []);
+  // Fetch bases and flavors
   useEffect(() => {
-    if (selectedRestaurant) {
-      const getPickupSlots = async () => {
-        try {
-          const response = await fetch(`/api/pickup-slots/${selectedRestaurant}`);
-          const slotsData = await response.json();
-          setPickupSlots(slotsData);
-        } catch (error) {
-          console.error("Error fetching pickup slots:", error);
+    const getBasesAndFlavors = async () => {
+      try {
+        // Fetch bases and flavors data using the imported API functions
+        const [baseData, flavorData] = await Promise.all([
+          getAllBases(),
+          getAllFlavors(),
+        ]);
+        
+        // Debugging: Log the fetched data
+        console.log("Fetched bases data:", baseData);
+        console.log("Fetched flavors data:", flavorData);
+
+        // Only update state if data exists
+        if (baseData && baseData.length > 0 && flavorData && flavorData.length > 0) {
+          setBases(baseData);
+          setFlavors(flavorData);
+        } else {
+          console.error("Fetched data is empty or invalid.");
         }
-      };
-      getPickupSlots();
-    }
-  }, [selectedRestaurant]);
+      } catch (error) {
+        console.error("Error fetching bases and flavors:", error);
+      }
+    };
 
-  const calculatePrice = (base, selectedFlavor) => {
-    let basePrice = 2.00;
-    let flavorPrice = selectedFlavor ? 0.50 : 0; 
+    getBasesAndFlavors();
+  }, []);
+
+  // Calculate the price based on selected base and flavors
+  const calculatePrice = (selectedBase, selectedFlavors) => {
+    let basePrice = 2.00; // Default base price
+    let flavorPrice = selectedFlavors.length * 0.50; // $0.50 per selected flavor
     return basePrice + flavorPrice;
   };
 
+  // Handle base selection changes
+  const handleBaseChange = (event, baseName) => {
+    if (event.target.checked) {
+      setSelectedBase([...selectedBase, baseName]);
+    } else {
+      setSelectedBase(selectedBase.filter((base) => base !== baseName));
+    }
+  };
+
+  // Handle flavor selection changes
+  const handleFlavorChange = (event, flavorName) => {
+    if (event.target.checked) {
+      setSelectedFlavors([...selectedFlavors, flavorName]);
+    } else {
+      setSelectedFlavors(selectedFlavors.filter((flavor) => flavor !== flavorName));
+    }
+  };
+
+  // Handle form submission (for placing the order)
   const handleSubmit = async (event) => {
     event.preventDefault();
     const orderDetails = {
-      restaurant: selectedRestaurant,
-      base,
-      flavor: selectedFlavor,
+      base: selectedBase,
+      flavors: selectedFlavors,
       pickupSlot: selectedSlot,
-      price: calculatePrice(base, selectedFlavor),
+      price: calculatePrice(selectedBase, selectedFlavors),
     };
 
-    localStorage.setItem("orderDetails", JSON.stringify(orderDetails));
-    navigate("/checkout");
+    localStorage.setItem("orderDetails", JSON.stringify(orderDetails)); // Store order details in localStorage
+    navigate("/checkout"); // Navigate to the checkout page
   };
 
   return (
     <div className="order-container">
       <h1>Order Your Drink!</h1>
       <form onSubmit={handleSubmit}>
+        {/* Base selection with checkboxes */}
         <div className="form-group">
-          <label htmlFor="restaurant">Select Restaurant:</label>
+          <h2>Select Base:</h2>
+          {bases.length > 0 ? (
+            bases.map((base) => (
+              <div key={base.baseID}>
+                <input
+                  type="checkbox"
+                  id={base.baseID}
+                  name="base"
+                  value={base.baseName}
+                  onChange={(e) => handleBaseChange(e, base.baseName)}
+                />
+                <label htmlFor={base.baseID}>{base.baseName}</label>
+              </div>
+            ))
+          ) : (
+            <p>Loading bases...</p>
+          )}
+        </div>
+
+        {/* Flavor selection with checkboxes */}
+        <div className="form-group">
+          <h2>Select Flavors:</h2>
+          {flavors.length > 0 ? (
+            flavors.map((flavor) => (
+              <div key={flavor.flavorID}>
+                <input
+                  type="checkbox"
+                  id={flavor.flavorID}
+                  name="flavor"
+                  value={flavor.flavorName}
+                  onChange={(e) => handleFlavorChange(e, flavor.flavorName)}
+                />
+                <label htmlFor={flavor.flavorID}>{flavor.flavorName}</label>
+              </div>
+            ))
+          ) : (
+            <p>Loading flavors...</p>
+          )}
+        </div>
+
+        {/* Pickup slot selection */}
+        <div className="form-group">
+          <label htmlFor="pickupSlot">Select Pickup Slot:</label>
           <select
-            id="restaurant"
-            value={selectedRestaurant}
-            onChange={(e) => setSelectedRestaurant(e.target.value)}
+            id="pickupSlot"
+            value={selectedSlot}
+            onChange={(e) => setSelectedSlot(e.target.value)}
             required
           >
-            <option value="">--Select Restaurant--</option>
-            {restaurants.map((restaurant) => (
-              <option key={restaurant.restaurantID} value={restaurant.restaurantID}>
-                {restaurant.restaurantName} - {restaurant.address}
+            <option value="">--Select Pickup Slot--</option>
+            {pickupSlots.map((slot) => (
+              <option key={slot.slotID} value={slot.slotID}>
+                {slot.slotTime}
               </option>
             ))}
           </select>
         </div>
 
-        {pickupSlots.length > 0 && (
-          <div className="form-group">
-            <label htmlFor="pickupSlot">Select Pickup Slot:</label>
-            <select
-              id="pickupSlot"
-              value={selectedSlot}
-              onChange={(e) => setSelectedSlot(e.target.value)}
-              required
-            >
-              <option value="">--Select Pickup Slot--</option>
-              {pickupSlots.map((slot) => (
-                <option key={slot.slotID} value={slot.slotID}>
-                  {slot.slotTime}
-                </option>
-              ))}
-            </select>
-          </div>
-        )}
-
-        <div className="form-group">
-          <label htmlFor="base">Select Base:</label>
-          <select id="base" value={base} onChange={(e) => setBase(e.target.value)} required>
-            <option value="">--Select Base--</option>
-            {drinks.map((drink) => (
-              <option key={drink.id} value={drink.base}>
-                {drink.base}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="flavor">Select Flavor:</label>
-          <select id="flavor" value={selectedFlavor} onChange={(e) => setSelectedFlavor(e.target.value)} required>
-            <option value="">--Select Flavor--</option>
-            {drinks.map((drink) => (
-              <option key={drink.flavorID} value={drink.flavorName}>
-                {drink.flavorName}
-              </option>
-            ))}
-          </select>
+        {/* Order summary */}
+        <div className="order-summary">
+          <h3>Your Order:</h3>
+          <p><strong>Base:</strong> {selectedBase.join(", ")}</p>
+          <p><strong>Flavors:</strong> {selectedFlavors.join(", ")}</p>
+          <p><strong>Pickup Slot:</strong> {selectedSlot}</p>
+          <p><strong>Price:</strong> ${calculatePrice(selectedBase, selectedFlavors).toFixed(2)}</p>
         </div>
 
         <button type="submit" className="order-button">Go to Checkout</button>

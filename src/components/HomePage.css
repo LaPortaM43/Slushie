@@ -1,4 +1,6 @@
 /* HomePage.css */
+
+/* Menu Icon */
 .menu-icon {
   position: absolute;
   top: 20px;
@@ -23,27 +25,36 @@
 }
 
 .menu-item {
-  margin-bottom: 15px; /* Adds space between the items */
+  margin-bottom: 20px; /* Adds more space between the items */
   font-size: 18px;
+  text-align: left;
+}
+
+.menu-item:first-child {
+  font-size: 22px; /* Larger size for the restaurant name */
   font-weight: bold;
 }
 
+/* Authentication Buttons */
 .auth-buttons {
   position: absolute;
   top: 20px;
   right: 20px;
+  z-index: 5; /* Ensure it's below the profile icon */
 }
 
 .auth-buttons button {
   margin-left: 10px;
 }
 
+/* Order Button */
 .order-button {
   margin-top: 20px;
   padding: 10px 20px;
   font-size: 16px;
 }
 
+/* Main Content */
 .content {
   text-align: center;
   margin-top: 100px;
@@ -61,7 +72,51 @@
   font-weight: bold;
 }
 
-/* Optionally add padding or margins to the entire menu if you want to adjust space around it */
+/* Menu Padding */
 .menu {
   padding: 20px;
+}
+
+/* Profile Icon and Dropdown Menu Styling */
+.profile-menu {
+  position: relative;
+  display: inline-block;
+  z-index: 15; /* Ensure it's above the authentication buttons */
+}
+
+.profile-icon {
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.profile-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 20; /* Ensure it's above other dropdown menus */
+}
+
+.profile-dropdown.show {
+  display: block;
+}
+
+.profile-dropdown button {
+  background: none;
+  border: none;
+  padding: 10px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.profile-dropdown button:hover {
+  background-color: #f0f0f0;
 }

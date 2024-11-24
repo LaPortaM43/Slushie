@@ -1,38 +1,57 @@
-// components/RegisterPage.js
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { register } from "../api/auth"; // Import the updated API function
 
 function RegisterPage() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [customerName, setCustomerName] = useState("");
+  const [customerEmail, setCustomerEmail] = useState("");
+  const [customerAddress, setCustomerAddress] = useState("");
+  const [customerPassword, setCustomerPassword] = useState("");
   const navigate = useNavigate();
 
   const handleRegister = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password }),
-      });
-      if (response.ok) {
-        navigate("/login");
-      } else {
-        alert("Registration failed. Please try again.");
-      }
+      // Use the updated register function from auth.js
+      await register(customerName, customerEmail, customerAddress, customerPassword);
+      navigate("/login"); // Redirect to login page if registration is successful
     } catch (error) {
-      console.error("Error registering:", error);
+      alert(error.response?.data?.error || "Registration failed. Please try again.");
     }
   };
 
   return (
     <div>
-      <h2>Register</h2>
+      <h2>Sign up</h2>
       <form onSubmit={handleRegister}>
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" required />
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" required />
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required />
+        <input
+          type="text"
+          value={customerName}
+          onChange={(e) => setCustomerName(e.target.value)}
+          placeholder="Name"
+          required
+        />
+        <input
+          type="email"
+          value={customerEmail}
+          onChange={(e) => setCustomerEmail(e.target.value)}
+          placeholder="Email"
+          required
+        />
+        <input
+          type="text"
+          value={customerAddress}
+          onChange={(e) => setCustomerAddress(e.target.value)}
+          placeholder="Address"
+          required
+        />
+        <input
+          type="password"
+          value={customerPassword}
+          onChange={(e) => setCustomerPassword(e.target.value)}
+          placeholder="Password"
+          required
+        />
         <button type="submit">Sign Up</button>
       </form>
     </div>
